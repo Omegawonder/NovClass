@@ -3,7 +3,7 @@ pipeline{
 
    agent any
 
-	//create dockerhub credential in github with TOKEN
+	//create dockerhub credential in github with your dockerhub Username and Password/Token
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
@@ -13,14 +13,14 @@ pipeline{
 		stage('gitclone') {
 
 		      steps {
-		         git https://github.com/Omegawonder/NovClass.git
+		         https://github.com/Omegawonder/NovClass.git
 		      }
 		}
 		
 		stage('Build') {
 			steps {
 			
-			   sh 'docker build -t omegawonder:${BUILD_NUMBER} .'
+			   sh 'docker build -t omegawonder/class_app:${BUILD_NUMBER} .'
 			}
 		}
 		
@@ -34,7 +34,7 @@ pipeline{
 		stage('Push') {
 			
 			steps {
-			   sh 'docker push omegawonder:${BUILD_NUMBER}'
+			   sh 'docker push omegawonder/class_app:${BUILD_NUMBER}'
 			}
 		}
 		}
